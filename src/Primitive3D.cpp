@@ -2,12 +2,9 @@
 
 namespace prim3d {
 
-	Primitive3D::Primitive3D(std::vector<Vertex> vertices, std::vector<unsigned int> indices,
-		std::vector<Texture> textures)
+	Primitive3D::Primitive3D()
 	{
-		this->vertices = vertices;
-		this->indices = indices;
-		this->textures = textures;
+		initializeData();
 	}
 	Primitive3D::~Primitive3D()
 	{

@@ -25,8 +25,7 @@ namespace prim3d {
 		std::vector<unsigned int> indices;
 		std::vector<Texture> textures;
 
-		Primitive3D(std::vector<Vertex> vertices, std::vector<unsigned int> indices,
-			std::vector<Texture> textures);
+		Primitive3D();
 		virtual ~Primitive3D();
 		virtual void render(Shader& shader) const = 0;
 		virtual void deleteMesh();
