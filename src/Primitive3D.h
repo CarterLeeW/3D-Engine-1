@@ -25,19 +25,17 @@ namespace prim3d {
 		std::vector<unsigned int> indices;
 		std::vector<Texture> textures;
 
-		// constructor
 		Primitive3D(std::vector<Vertex> vertices, std::vector<unsigned int> indices,
 			std::vector<Texture> textures);
-		// destructor
 		virtual ~Primitive3D();
+		virtual void render(Shader& shader) const = 0;
+		virtual void deleteMesh();
 
-		void Draw(Shader& shader);
-
-	private:
+	protected:
 		unsigned int VAO, VBO, EBO;
+		bool isInitialized = false;
 
-		void setupMesh();
-
+		virtual void initializeData() {};
 	};
 
 } // namespace prim3d

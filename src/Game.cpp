@@ -6,6 +6,7 @@ Game::~Game() {}
 void Game::init(const char* title, int width, int height, bool fullscreen)
 {
 	renderer = new Renderer(title, width, height);
+	// FIXME load scene from scene.cpp
 	isRunning = true;
 }
 

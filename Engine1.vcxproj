@@ -163,7 +163,7 @@
     <ClInclude Include="src\model.h" />
     <ClInclude Include="src\Primitive3D.h" />
     <ClInclude Include="src\renderer.h" />
-    <ClInclude Include="src\scene.h" />
+    <ClInclude Include="src\scene.cpp" />
     <ClInclude Include="src\shader.h" />
     <ClInclude Include="src\StaticMesh3D.h" />
   </ItemGroup>

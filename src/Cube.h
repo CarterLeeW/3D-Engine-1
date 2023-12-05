@@ -1,7 +1,7 @@
 #ifndef CUBE_H
 #define CUBE_H
 
-#include "thirdparty/glm/glm.hpp"
+#include <glm/glm.hpp>
 
 namespace sm3d {
 	class Cube {
