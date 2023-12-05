@@ -16,24 +16,22 @@ namespace prim3d {
 	struct Texture {
 		unsigned int id;
 		std::string type;
+		std::string path;
 	};
 	class Primitive3D
 	{
 	public:
-		// mesh data
-		std::vector<Vertex> vertices;
-		std::vector<unsigned int> indices;
-		std::vector<Texture> textures;
-
+		
 		Primitive3D();
 		virtual ~Primitive3D();
 		virtual void render(Shader& shader) const = 0;
 		virtual void deleteMesh();
 
 	protected:
-		unsigned int VAO, VBO, EBO;
+		unsigned int VAO, VBO;
 		bool isInitialized = false;
 
+		virtual void initializeMesh() {}; // only for some primitives
 		virtual void initializeData() {};
 	};
 

@@ -7,10 +7,11 @@ namespace prim3d {
 	class Cube : public Primitive3D
 	{
 	public:
-		Cube(std::vector<Vertex> vertices, std::vector<unsigned int> indices,
-			std::vector<Texture> textures, bool multipleTextures);
+		Cube(bool multipleTextures);
 
 		void render(Shader& shader) const override;
+
+		static float vertices[288];
 
 	private:
 		bool multipleTextures = false;
