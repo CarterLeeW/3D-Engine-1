@@ -1,6 +1,4 @@
-#pragma once
-
-#include "Primitive3D.h"
+#include "Cube.h"
 
 namespace prim3d {
 
