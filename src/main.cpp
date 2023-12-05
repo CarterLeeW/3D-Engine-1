@@ -9,7 +9,7 @@ int main()
 	game = new Game();
 	game->init("title", 800, 600, false);
 
-	while (game->isRunning) {
+	while (game->getIsRunning()) {
 		game->render();
 	}
 
