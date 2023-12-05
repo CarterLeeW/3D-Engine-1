@@ -151,20 +151,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Primitive3D.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Primitive3D.cpp" />
     <ClCompile Include="thirdparty\glad\src\glad.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="Cube.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Primitive3D.h" />
-    <ClInclude Include="scene.h" />
-    <ClInclude Include="model.h" />
-    <ClInclude Include="renderer.h" />
-    <ClInclude Include="shader.h" />
-    <ClInclude Include="StaticMesh3D.h" />
+    <ClInclude Include="src\camera.h" />
+    <ClInclude Include="src\Cube.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\model.h" />
+    <ClInclude Include="src\Primitive3D.h" />
+    <ClInclude Include="src\renderer.h" />
+    <ClInclude Include="src\scene.h" />
+    <ClInclude Include="src\shader.h" />
+    <ClInclude Include="src\StaticMesh3D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

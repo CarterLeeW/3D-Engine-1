@@ -6,9 +6,10 @@
 #include <stb_image/stb_image.h>
 
 // glm
-#include "thirdparty/glm/glm.hpp"
-#include "thirdparty/glm/gtc/matrix_transform.hpp"
-#include "thirdparty/glm/gtc/type_ptr.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 
 #include "camera.h"
 #include "shader.h"
