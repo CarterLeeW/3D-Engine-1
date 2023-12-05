@@ -1,0 +1,3 @@
+C:/Users/carte/source/repos/AdvancedOpenGL/thirdparty/stb_image/out/build/x64-Debug/CMakeFiles/stb_image.dir
+C:/Users/carte/source/repos/AdvancedOpenGL/thirdparty/stb_image/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/carte/source/repos/AdvancedOpenGL/thirdparty/stb_image/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
