@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
-
+// for loading textures, shaders, and other objects
+#define RESOURCES_PATH "C:/Users/carte/source/repos/AdvancedOpenGL/resources/"
 
 #include "camera.h"
 #include "shader.h"

@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Game.h"
 
-#define RESOURCES_PATH "C:/Users/carte/source/repos/AdvancedOpenGL/resources/"
 Game* game = nullptr;
 int main()
 {
