@@ -103,8 +103,8 @@ void Game::render()
     shader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 
     // view/projection transformations
-    glm::mat4 projection = glm::perspective(glm::radians(renderer->camera.Zoom), (float)width / (float)height, 0.1f, 100.0f);
-    glm::mat4 view = renderer->camera.GetViewMatrix();
+    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)width / (float)height, 0.1f, 100.0f);
+    glm::mat4 view = camera.GetViewMatrix();
     shader->setMat4("projection", projection);
     shader->setMat4("view", view);
 

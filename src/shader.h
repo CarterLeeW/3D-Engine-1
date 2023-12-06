@@ -1,8 +1,8 @@
-#ifndef SHADER_H
-#define SHADER_H
+#pragma once
 
 #include <glad/glad.h>
-
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -138,4 +138,3 @@ private:
         }
     }
 };
-#endif

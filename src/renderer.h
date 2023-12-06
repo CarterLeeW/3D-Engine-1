@@ -1,13 +1,12 @@
-#ifndef RENDERER_H
-#define RENDERER_H
+#pragma once
 
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-// define callbacks
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void scroll_callback(GLFWwindow* window, GLdouble xoffset, GLdouble yoffset);
-void mouse_callback(GLFWwindow* window, GLdouble xposIn, GLdouble yposIn);
+#include "camera.h"
+#include "callbacks.h"
+
+
 class Renderer
 {
 public:
@@ -16,12 +15,12 @@ public:
     int SCR_HEIGHT = 600;
     const char* TITLE = "";
     GLFWwindow* window;
-    static Camera camera;
+    
     // timing
     GLfloat deltaTime = 0.0f;
     GLfloat lastFrame = 0.0f;
     float currentFrame = 0;
-    bool firstMouse = true;
+    
 
     // constructor
     
@@ -98,37 +97,5 @@ private:
 
         return true;
     }
-
+    
 };
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0, 0, width, height);
-}
-void mouse_callback(GLFWwindow* window, GLdouble xposIn, GLdouble yposIn)
-{
-    GLfloat xpos = static_cast<GLfloat>(xposIn);
-    GLfloat ypos = static_cast<GLfloat>(yposIn);
-
-    if (Renderer::camera.firstMouse)
-    {
-        Renderer::camera.lastX = xpos;
-        Renderer::camera.lastY = ypos;
-        //firstMouse = false;
-    }
-
-    GLfloat xoffset = xpos - Renderer::camera.lastX;
-    GLfloat yoffset = Renderer::camera.lastY - ypos;
-    Renderer::camera.lastX = xpos;
-    Renderer::camera.lastY = ypos;
-
-    Renderer::camera.ProcessMouseMovement(xoffset, yoffset);
-}
-
-void scroll_callback(GLFWwindow* window, GLdouble xoffset, GLdouble yoffset)
-{
-    Renderer::camera.ProcessMouseScroll(static_cast<GLfloat>(yoffset));
-}
-
-
-#endif // !RENDERER_H

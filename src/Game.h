@@ -1,9 +1,7 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 // for loading textures, shaders, and other objects
 #define RESOURCES_PATH "C:/Users/carte/source/repos/Engine1/resources/"
 
-#include "camera.h"
 #include "shader.h"
 #include "renderer.h"
 #include <glad/glad.h> // holds all OpenGL type declarations
@@ -34,6 +32,3 @@ private:
 
 	Cube* box;
 };
-
-
-#endif // !GAME_H
