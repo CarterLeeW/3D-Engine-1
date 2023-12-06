@@ -1,11 +1,15 @@
 #ifndef GAME_H
 #define GAME_H
 // for loading textures, shaders, and other objects
-#define RESOURCES_PATH "C:/Users/carte/source/repos/AdvancedOpenGL/resources/"
+#define RESOURCES_PATH "C:/Users/carte/source/repos/Engine1/resources/"
 
 #include "camera.h"
 #include "shader.h"
 #include "renderer.h"
+#include <glad/glad.h> // holds all OpenGL type declarations
+#include <glm/glm.hpp>
+
+#include "Cube.h"
 
 class Game
 {
@@ -22,7 +26,13 @@ public:
 private:
 	bool isRunning = false;
 	Renderer* renderer = nullptr;
+	Shader* shader = nullptr;
 	int cnt = 0;  
+	int width;
+	int height;
+	unsigned int VBO, cubeVAO;
+
+	Cube* box;
 };
 
 

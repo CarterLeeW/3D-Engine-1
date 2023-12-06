@@ -2,7 +2,6 @@
 #include <glad/glad.h> // holds all OpenGL type declarations
 #include <glm/glm.hpp>
 #include "shader.h"
-#include "Game.h"
 #include <stb_image/stb_image.h>
 #include <vector>
 #include <string>
@@ -10,7 +9,7 @@
 
 
 
-namespace prim3d {
+
 	struct Vertex {
 		glm::vec3 Position;
 		glm::vec3 Normal;
@@ -80,4 +79,3 @@ namespace prim3d {
 		virtual void initializeData() {};
 	};
 
-} // namespace prim3d

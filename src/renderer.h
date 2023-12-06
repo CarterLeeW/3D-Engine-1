@@ -4,6 +4,10 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+// define callbacks
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void scroll_callback(GLFWwindow* window, GLdouble xoffset, GLdouble yoffset);
+void mouse_callback(GLFWwindow* window, GLdouble xposIn, GLdouble yposIn);
 class Renderer
 {
 public:
@@ -12,7 +16,7 @@ public:
     int SCR_HEIGHT = 600;
     const char* TITLE = "";
     GLFWwindow* window;
-    Camera camera;
+    static Camera camera;
     // timing
     GLfloat deltaTime = 0.0f;
     GLfloat lastFrame = 0.0f;
@@ -57,6 +61,7 @@ public:
             camera.ProcessKeyboard(DOWN, deltaTime);
     }
 private:
+
     bool initGLFW()
     {
         glfwInit();
@@ -82,51 +87,48 @@ private:
             return false;
         }
 
-
+       
         // capture motion and disable cursor
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-        // define callbacks
-        void framebuffer_size_callback(GLFWwindow * window, int width, int height);
-        void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
-        void mouse_callback(GLFWwindow * window, GLdouble xposIn, GLdouble yposIn);
+        glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+        glfwSetCursorPosCallback(window, mouse_callback);
+        glfwSetScrollCallback(window, scroll_callback);
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         return true;
     }
 
-    void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-    {
-        glViewport(0, 0, width, height);
-    }
-
-    
-
-    void mouse_callback(GLFWwindow* window, GLdouble xposIn, GLdouble yposIn)
-    {
-        GLfloat xpos = static_cast<GLfloat>(xposIn);
-        GLfloat ypos = static_cast<GLfloat>(yposIn);
-
-        if (camera.firstMouse)
-        {
-            camera.lastX = xpos;
-            camera.lastY = ypos;
-            firstMouse = false;
-        }
-
-        GLfloat xoffset = xpos - camera.lastX;
-        GLfloat yoffset = camera.lastY - ypos;
-        camera.lastX = xpos;
-        camera.lastY = ypos;
-
-        camera.ProcessMouseMovement(xoffset, yoffset);
-    }
-
-    void scroll_callback(GLFWwindow* window, GLdouble xoffset, GLdouble yoffset)
-    {
-        camera.ProcessMouseScroll(static_cast<GLfloat>(yoffset));
-    }
 };
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
+void mouse_callback(GLFWwindow* window, GLdouble xposIn, GLdouble yposIn)
+{
+    GLfloat xpos = static_cast<GLfloat>(xposIn);
+    GLfloat ypos = static_cast<GLfloat>(yposIn);
+
+    if (Renderer::camera.firstMouse)
+    {
+        Renderer::camera.lastX = xpos;
+        Renderer::camera.lastY = ypos;
+        //firstMouse = false;
+    }
+
+    GLfloat xoffset = xpos - Renderer::camera.lastX;
+    GLfloat yoffset = Renderer::camera.lastY - ypos;
+    Renderer::camera.lastX = xpos;
+    Renderer::camera.lastY = ypos;
+
+    Renderer::camera.ProcessMouseMovement(xoffset, yoffset);
+}
+
+void scroll_callback(GLFWwindow* window, GLdouble xoffset, GLdouble yoffset)
+{
+    Renderer::camera.ProcessMouseScroll(static_cast<GLfloat>(yoffset));
+}
+
 
 #endif // !RENDERER_H

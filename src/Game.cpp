@@ -1,13 +1,74 @@
 #include "Game.h"
 
+float vertices[] = {
+        -0.5f, -0.5f, -0.5f,
+         0.5f, -0.5f, -0.5f,
+         0.5f,  0.5f, -0.5f,
+         0.5f,  0.5f, -0.5f,
+        -0.5f,  0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+
+        -0.5f, -0.5f,  0.5f,
+         0.5f, -0.5f,  0.5f,
+         0.5f,  0.5f,  0.5f,
+         0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f,  0.5f,
+        -0.5f, -0.5f,  0.5f,
+
+        -0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+        -0.5f, -0.5f,  0.5f,
+        -0.5f,  0.5f,  0.5f,
+
+         0.5f,  0.5f,  0.5f,
+         0.5f,  0.5f, -0.5f,
+         0.5f, -0.5f, -0.5f,
+         0.5f, -0.5f, -0.5f,
+         0.5f, -0.5f,  0.5f,
+         0.5f,  0.5f,  0.5f,
+
+        -0.5f, -0.5f, -0.5f,
+         0.5f, -0.5f, -0.5f,
+         0.5f, -0.5f,  0.5f,
+         0.5f, -0.5f,  0.5f,
+        -0.5f, -0.5f,  0.5f,
+        -0.5f, -0.5f, -0.5f,
+
+        -0.5f,  0.5f, -0.5f,
+         0.5f,  0.5f, -0.5f,
+         0.5f,  0.5f,  0.5f,
+         0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f, -0.5f,
+};
 Game::Game() {}
 Game::~Game() {}
 
 void Game::init(const char* title, int width, int height, bool fullscreen)
 {
 	renderer = new Renderer(title, width, height);
-	// FIXME load scene from scene.cpp
+    this->width = width;
+    this->height = height;
+	// FIXME load scene from scene.cpp and edit this out
+    /* test stuff */
+    shader = new Shader(RESOURCES_PATH "shaders/shader.vs", RESOURCES_PATH "shaders/shader.fs");
+    shader->use();
+    // first, configure the cube's VAO (and VBO)
 
+    glGenVertexArrays(1, &cubeVAO);
+    glGenBuffers(1, &VBO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glBindVertexArray(cubeVAO);
+
+    // position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    /* test stuff */
 
 	isRunning = true;
 }
@@ -36,39 +97,32 @@ void Game::render()
 	// loop and render meshes
 	//
 	//
-    ourShader.use();
-    ourShader.setVec3("viewPos", camera.Position);
-    ourShader.setFloat("material.shininess", 32.0f);
-    // spotLight
-    ourShader.setVec3("light.position", camera.Position);
-    ourShader.setVec3("light.direction", camera.Front);
-    ourShader.setVec3("light.ambient", 0.0f, 0.0f, 0.0f);
-    ourShader.setVec3("light.diffuse", 1.0f, 1.0f, 1.0f);
-    ourShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-    ourShader.setFloat("light.constant", 1.0f);
-    ourShader.setFloat("light.linear", 0.09f);
-    ourShader.setFloat("light.quadratic", 0.032f);
-    ourShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
-    ourShader.setFloat("light.outerCutOff", glm::cos(glm::radians(15.0f)));
+    shader->use();
+    // be sure to activate shader when setting uniforms/drawing objects
+    shader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+    shader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 
     // view/projection transformations
-    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-    glm::mat4 view = camera.GetViewMatrix();
-    ourShader.setMat4("projection", projection);
-    ourShader.setMat4("view", view);
+    glm::mat4 projection = glm::perspective(glm::radians(renderer->camera.Zoom), (float)width / (float)height, 0.1f, 100.0f);
+    glm::mat4 view = renderer->camera.GetViewMatrix();
+    shader->setMat4("projection", projection);
+    shader->setMat4("view", view);
 
-    // render the loaded model
+    // world transformation
     glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-    model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
-    ourShader.setMat4("model", model);
-    ourShader.setMat3("modelMatNormals", glm::mat3(transpose(inverse(model))));
-    ourModel.Draw(ourShader);
+    shader->setMat4("model", model);
+
+    // render the cube
+    glBindVertexArray(cubeVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    
 
 
 	glfwSwapBuffers(renderer->window);
 	glfwPollEvents();
 	if (glfwWindowShouldClose(renderer->window)) {
+        glDeleteVertexArrays(1, &cubeVAO);
+        glDeleteBuffers(1, &VBO);
 		isRunning = false;
 		glfwTerminate();
 	}

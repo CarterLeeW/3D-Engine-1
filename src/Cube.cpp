@@ -1,6 +1,5 @@
 #include "Cube.h"
 
-namespace prim3d {
 
     float Cube::vertices[] = {
         // back face
@@ -100,5 +99,3 @@ namespace prim3d {
 
         glActiveTexture(GL_TEXTURE0);
     }
-
-} // namespace prim3d

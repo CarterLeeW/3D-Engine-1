@@ -1,6 +1,5 @@
 #include "Primitive3D.h"
 
-namespace prim3d {
 
 	Primitive3D::Primitive3D()
 	{
@@ -22,6 +21,6 @@ namespace prim3d {
 		newTexture.id = textureID;
 		newTexture.type = type;
 		textures.push_back(newTexture);
+		std::cout << textureID;
 	}
 
-} // namespace prim3d
