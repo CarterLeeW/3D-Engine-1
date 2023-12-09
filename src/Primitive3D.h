@@ -28,7 +28,7 @@
 		
 		Primitive3D();
 		virtual ~Primitive3D();
-		virtual void draw(Shader& shader) const = 0;
+		virtual void draw(Shader& shader) = 0;
         void setTexture(std::string type, const char* path);
 		virtual void deleteMesh();
 

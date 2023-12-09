@@ -5,6 +5,7 @@
 #include "Game.h"
 #include <glad/glad.h> // holds all OpenGL type declarations
 #include <glm/glm.hpp>
+#include "Cube.h"
 #define RESOURCES_PATH "C:/Users/carte/source/repos/Engine1/resources/"
 namespace scene {
     float vertices[] = {
@@ -52,9 +53,13 @@ namespace scene {
     };
     Shader* shader = nullptr;
     unsigned int VBO, cubeVAO;
+    Cube* cube = nullptr;
+
+
 	void printMe() {
 		std::cout << "hello" << std::endl;
 	}
+
 	void buildObjects()
 	{
         shader = new Shader(RESOURCES_PATH "shaders/shader.vs", RESOURCES_PATH "shaders/shader.fs");
@@ -70,6 +75,10 @@ namespace scene {
         // position attribute
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
+
+        // first cube object
+        cube = new Cube(true, false);
+        cube->setTexture("texture_diffuse", RESOURCES_PATH "textures/container2.png");
 	}
 
 	void renderObjects()
@@ -92,6 +101,10 @@ namespace scene {
         // render the cube
         glBindVertexArray(cubeVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        model = glm::mat4(4.0f);
+        shader->setMat4("model", model);
+        cube->draw(*shader);
 	}
 
 
@@ -100,5 +113,6 @@ namespace scene {
         glDeleteVertexArrays(1, &cubeVAO);
         glDeleteBuffers(1, &VBO);
         delete(shader);
+        delete(cube);
 	}
 }
