@@ -4,55 +4,13 @@
 #include "renderer.h"
 #include "Game.h"
 #include <glad/glad.h> // holds all OpenGL type declarations
+
 #include <glm/glm.hpp>
+#include "Primitive3D.h"
 #include "Cube.h"
 #define RESOURCES_PATH "C:/Users/carte/source/repos/Engine1/resources/"
 namespace scene {
-    float vertices[] = {
-        -0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-        -0.5f,  0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-
-        -0.5f, -0.5f,  0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-        -0.5f, -0.5f,  0.5f,
-
-        -0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-
-        -0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f, -0.5f,  0.5f,
-        -0.5f, -0.5f,  0.5f,
-        -0.5f, -0.5f, -0.5f,
-
-        -0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f, -0.5f,
-    };
     Shader* shader = nullptr;
-    unsigned int VBO, cubeVAO;
     Cube* cube = nullptr;
 
 
@@ -63,18 +21,6 @@ namespace scene {
 	void buildObjects()
 	{
         shader = new Shader(RESOURCES_PATH "shaders/shader.vs", RESOURCES_PATH "shaders/shader.fs");
-
-        glGenVertexArrays(1, &cubeVAO);
-        glGenBuffers(1, &VBO);
-
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-        glBindVertexArray(cubeVAO);
-
-        // position attribute
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
 
         // first cube object
         cube = new Cube(true, false);
@@ -98,20 +44,12 @@ namespace scene {
         glm::mat4 model = glm::mat4(1.0f);
         shader->setMat4("model", model);
 
-        // render the cube
-        glBindVertexArray(cubeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-
-        model = glm::mat4(4.0f);
-        shader->setMat4("model", model);
         cube->draw(*shader);
 	}
 
 
 	void destroyObjects()
 	{
-        glDeleteVertexArrays(1, &cubeVAO);
-        glDeleteBuffers(1, &VBO);
         delete(shader);
         delete(cube);
 	}

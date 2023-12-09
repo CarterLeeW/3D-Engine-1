@@ -13,12 +13,16 @@
     void Cube::initializeData()
     {
         glGenVertexArrays(1, &VAO);
-        glGenBuffers(1, &VAO);
-        glBindVertexArray(VAO);
+        glGenBuffers(1, &VBO);
+        
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), &vertices, GL_STATIC_DRAW);
-        glEnableVertexAttribArray(0);
+
+        glBindVertexArray(VAO);
+
+        
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
         glEnableVertexAttribArray(2);
