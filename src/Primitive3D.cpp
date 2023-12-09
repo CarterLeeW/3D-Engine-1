@@ -21,6 +21,5 @@
 		newTexture.id = textureID;
 		newTexture.type = type;
 		textures.push_back(newTexture);
-		std::cout << textureID;
 	}
 
