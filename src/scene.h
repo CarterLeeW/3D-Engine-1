@@ -64,8 +64,12 @@ namespace scene {
         shader->setMat4("model", model);
         cube1->draw(*shader);
         // cube2
-        
-
+        scale = glm::scale(glm::vec3(2.0f, 1.0f, 1.0f));
+        rotation = glm::rotate(glm::radians(0.0f), glm::vec3(1.0f));
+        translation = glm::translate(glm::vec3(3.0f, 2.0f, -2.0f));
+        model = translation * rotation * scale;
+        shader->setMat4("model", model);
+        cube2->draw(*shader);
 
         
 	}
