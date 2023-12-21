@@ -82,7 +82,7 @@ public:
     void setScale(glm::vec3 xyz) { transform.scale = glm::scale(xyz); }
     void setRotation(float degrees, glm::vec3 xyz) { transform.rotation = glm::rotate(glm::radians(degrees), xyz); }
     void setTranslation(glm::vec3 xyz) { transform.translation = glm::translate(xyz); }
-    void updateModel() { transform.model = transform.translation * transform.rotation * transform.scale; }
+    void updateModelMatrix() { transform.model = transform.translation * transform.rotation * transform.scale; }
 
 protected:
 	unsigned int VAO, VBO;

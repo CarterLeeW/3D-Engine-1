@@ -30,7 +30,7 @@ namespace scene {
         cube1->setScale(glm::vec3(2.0f));
         cube1->setRotation(45.0f, glm::vec3(1.0f));
         cube1->setTranslation(glm::vec3(0.0f, 0.0f, -4.0f));
-        cube1->updateModel();
+        cube1->updateModelMatrix();
         cube1->setTexture("texture_diffuse", RESOURCES_PATH "textures/container2.png");
         cube2 = new Cube(true, false);
         cube2->setTexture("texture_diffuse", RESOURCES_PATH "textures/container2.png");
@@ -50,7 +50,7 @@ namespace scene {
         // world transformation
         // cube1
         cube1->setRotation((float)glfwGetTime() *40.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-        cube1->updateModel();
+        cube1->updateModelMatrix();
         shader->setMat4("model", cube1->getModel());
         cube1->draw(*shader);
         
