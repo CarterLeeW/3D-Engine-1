@@ -10,11 +10,10 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 	renderer = new Renderer(title, width, height);
     this->width = width;
     this->height = height;
-	// FIXME load scene from scene.cpp and edit this out
+
+	/* test stuff */
     scene::buildObjects();
 	scene::buildLight();
-    /* test stuff */
-   
     /* test stuff */
 
 	isRunning = true;

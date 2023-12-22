@@ -22,6 +22,9 @@ namespace scene {
 
     void buildLight()
     {
+        shader->setInt("material.texture_diffuse1", 0);
+        shader->setInt("material.texture_specular", 1);
+
         // directional light
         shader->setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
         shader->setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
@@ -44,11 +47,7 @@ namespace scene {
 	void buildObjects()
 	{
         shader = new Shader(RESOURCES_PATH "shaders/texturedObjWithLight.vs", RESOURCES_PATH "shaders/texturedObjWithLight.fs");
-
-        // update lights
-        // spotLight
-        shader->setVec3("spotLight.position", camera.Position);
-        shader->setVec3("spotLight.direction", camera.Front);
+        shader->use();
 
         // first cube object
         cube1 = new Cube(true, false);
@@ -58,16 +57,19 @@ namespace scene {
         cube1->setTranslation(glm::vec3(0.0f, 0.0f, -4.0f));
         cube1->updateModelMatrix();
         cube1->setTexture("texture_diffuse", RESOURCES_PATH "textures/container2.png");
-
-        cube2 = new Cube(true, false);
-        cube2->setTexture("texture_diffuse", RESOURCES_PATH "textures/container2.png");
+        cube1->setTexture("texture_specular", RESOURCES_PATH "textures/container2_specular.png");
 	}
 
 	void renderObjects()
 	{
         shader->use();
-        
-        
+        shader->setVec3("viewPos", camera.Position);
+
+        // update lights
+        // spotLight
+        shader->setVec3("spotLight.position", camera.Position);
+        shader->setVec3("spotLight.direction", camera.Front);
+
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)800 / (float)600, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
