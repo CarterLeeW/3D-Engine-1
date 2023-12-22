@@ -85,5 +85,11 @@
     <None Include="resources\shaders\texturedObject.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="resources\shaders\texturedObjWithLight.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\texturedObjWithLight.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

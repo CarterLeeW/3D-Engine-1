@@ -175,6 +175,8 @@
     <None Include="resources\shaders\shader.vs" />
     <None Include="resources\shaders\texturedObject.vs" />
     <None Include="resources\shaders\texturedObject.fs" />
+    <None Include="resources\shaders\texturedObjWithLight.fs" />
+    <None Include="resources\shaders\texturedObjWithLight.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

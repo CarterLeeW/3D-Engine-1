@@ -22,7 +22,7 @@ namespace scene {
 
 	void buildObjects()
 	{
-        shader = new Shader(RESOURCES_PATH "shaders/texturedObject.vs", RESOURCES_PATH "shaders/texturedObject.fs");
+        shader = new Shader(RESOURCES_PATH "shaders/texturedObjWithLight.vs", RESOURCES_PATH "shaders/texturedObjWithLight.fs");
 
         // first cube object
         cube1 = new Cube(true, false);
@@ -51,6 +51,7 @@ namespace scene {
         // cube1
         cube1->setRotation((float)glfwGetTime() *40.0f, glm::vec3(0.0f, 1.0f, 0.0f));
         cube1->updateModelMatrix();
+        shader->setMat3("normalMat", cube1->getNormalMat());
         shader->setMat4("model", cube1->getModel());
         cube1->draw(*shader);
         
