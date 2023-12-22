@@ -15,12 +15,43 @@ namespace scene {
     Cube* cube1 = nullptr;
     Cube* cube2 = nullptr;
 
+    // function prototypes
+    void buildScene();
+    void buildShaders();
+    void buildObjects();
+    void buildLights();
 
-	void printMe() {
-		std::cout << "hello" << std::endl;
+    /* builds shaders, objects, and lights */
+    void buildScene()
+    {
+        buildShaders();
+        buildObjects();
+        buildLights();
+    }
+
+    /* must be called before buildObjects and buildLights */
+    void buildShaders()
+    {
+        shader = new Shader(RESOURCES_PATH "shaders/texturedObjWithLight.vs", RESOURCES_PATH "shaders/texturedObjWithLight.fs");
+    }
+
+	void buildObjects()
+	{
+        
+        shader->use();
+
+        // first cube object
+        cube1 = new Cube(true, false);
+        // set initial world space
+        cube1->setScale(glm::vec3(2.0f));
+        cube1->setRotation(45.0f, glm::vec3(1.0f));
+        cube1->setTranslation(glm::vec3(0.0f, 0.0f, -4.0f));
+        cube1->updateModelMatrix();
+        cube1->setTexture("texture_diffuse", RESOURCES_PATH "textures/container2.png");
+        cube1->setTexture("texture_specular", RESOURCES_PATH "textures/container2_specular.png");
 	}
 
-    void buildLight()
+    void buildLights()
     {
         shader->setInt("material.texture_diffuse1", 0);
         shader->setInt("material.texture_specular", 1);
@@ -43,22 +74,6 @@ namespace scene {
         shader->setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
         shader->setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
     }
-
-	void buildObjects()
-	{
-        shader = new Shader(RESOURCES_PATH "shaders/texturedObjWithLight.vs", RESOURCES_PATH "shaders/texturedObjWithLight.fs");
-        shader->use();
-
-        // first cube object
-        cube1 = new Cube(true, false);
-        // set initial world space
-        cube1->setScale(glm::vec3(2.0f));
-        cube1->setRotation(45.0f, glm::vec3(1.0f));
-        cube1->setTranslation(glm::vec3(0.0f, 0.0f, -4.0f));
-        cube1->updateModelMatrix();
-        cube1->setTexture("texture_diffuse", RESOURCES_PATH "textures/container2.png");
-        cube1->setTexture("texture_specular", RESOURCES_PATH "textures/container2_specular.png");
-	}
 
 	void renderObjects()
 	{

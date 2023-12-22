@@ -12,8 +12,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     this->height = height;
 
 	/* test stuff */
-    scene::buildObjects();
-	scene::buildLight();
+	scene::buildScene();
     /* test stuff */
 
 	isRunning = true;
