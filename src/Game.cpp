@@ -12,6 +12,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     this->height = height;
 	// FIXME load scene from scene.cpp and edit this out
     scene::buildObjects();
+	scene::buildLight();
     /* test stuff */
    
     /* test stuff */

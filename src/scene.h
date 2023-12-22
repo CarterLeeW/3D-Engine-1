@@ -20,9 +20,35 @@ namespace scene {
 		std::cout << "hello" << std::endl;
 	}
 
+    void buildLight()
+    {
+        // directional light
+        shader->setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+        shader->setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+        shader->setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+        shader->setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+
+        // spotLight
+        shader->setVec3("spotLight.position", camera.Position);
+        shader->setVec3("spotLight.direction", camera.Front);
+        shader->setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
+        shader->setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
+        shader->setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+        shader->setFloat("spotLight.constant", 1.0f);
+        shader->setFloat("spotLight.linear", 0.09f);
+        shader->setFloat("spotLight.quadratic", 0.032f);
+        shader->setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+        shader->setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
+    }
+
 	void buildObjects()
 	{
         shader = new Shader(RESOURCES_PATH "shaders/texturedObjWithLight.vs", RESOURCES_PATH "shaders/texturedObjWithLight.fs");
+
+        // update lights
+        // spotLight
+        shader->setVec3("spotLight.position", camera.Position);
+        shader->setVec3("spotLight.direction", camera.Front);
 
         // first cube object
         cube1 = new Cube(true, false);
@@ -32,6 +58,7 @@ namespace scene {
         cube1->setTranslation(glm::vec3(0.0f, 0.0f, -4.0f));
         cube1->updateModelMatrix();
         cube1->setTexture("texture_diffuse", RESOURCES_PATH "textures/container2.png");
+
         cube2 = new Cube(true, false);
         cube2->setTexture("texture_diffuse", RESOURCES_PATH "textures/container2.png");
 	}
@@ -53,6 +80,7 @@ namespace scene {
         cube1->updateModelMatrix();
         shader->setMat3("normalMat", cube1->getNormalMat());
         shader->setMat4("model", cube1->getModel());
+        shader->setFloat("material.shininess", 32.0f);
         cube1->draw(*shader);
         
         
