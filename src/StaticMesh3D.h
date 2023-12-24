@@ -11,6 +11,9 @@
 #include <vector>
 
 namespace sm3d {
+
+	
+
 	struct Vertex {
 		glm::vec3 Position;
 		glm::vec3 Normal;
@@ -43,6 +46,8 @@ namespace sm3d {
 
 		virtual ~StaticMesh3D()
 		{}
+
+		
 
 		void Draw(Shader& shader)
 		{
@@ -77,6 +82,7 @@ namespace sm3d {
 	private:
 		// render data
 		unsigned int VAO, VBO, EBO;
+		
 
 		void setupMesh()
 		{

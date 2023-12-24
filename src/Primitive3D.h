@@ -8,96 +8,97 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
+namespace prim3d {
+
+    struct Transformations {
+        glm::mat4 scale = glm::mat4(1.0f);
+        glm::mat4 rotation = glm::mat4(1.0f);
+        glm::mat4 translation = glm::mat4(1.0f);
+        glm::mat3 normalMat = glm::mat3(1.0f);
+        glm::mat4 model = glm::mat4(1.0f);
+    };
+
+    struct Vertex {
+        glm::vec3 Position;
+        glm::vec3 Normal;
+        glm::vec2 TexCoords;
+    };
+
+    struct Texture {
+        unsigned int id;
+        std::string type;
+    };
 
 
-struct Transformations {
-    glm::mat4 scale = glm::mat4(1.0f);
-    glm::mat4 rotation = glm::mat4(1.0f);
-    glm::mat4 translation = glm::mat4(1.0f);
-    glm::mat3 normalMat = glm::mat3(1.0f);
-    glm::mat4 model = glm::mat4(1.0f);
-};
-
-struct Vertex {
-	glm::vec3 Position;
-	glm::vec3 Normal;
-	glm::vec2 TexCoords;
-};
-
-struct Texture {
-	unsigned int id;
-	std::string type;
-};
-    
-
-class Primitive3D
-{
-public:
-
-    Primitive3D();
-    virtual ~Primitive3D();
-    virtual void draw(Shader& shader) = 0;
-    void setTexture(std::string type, const char* path);
-    virtual void deleteMesh();
-
-    unsigned int loadTexture(char const* path)
+    class Primitive3D
     {
-        unsigned int textureID;
-        glGenTextures(1, &textureID);
+    public:
 
-        int width, height, nrComponents;
-        unsigned char* data = stbi_load(path, &width, &height, &nrComponents, 0);
-        if (data)
+        Primitive3D();
+        virtual ~Primitive3D();
+        virtual void draw(Shader& shader) = 0;
+        void setTexture(std::string type, const char* path);
+        virtual void deleteMesh();
+
+        unsigned int loadTexture(char const* path)
         {
-            GLenum format;
-            if (nrComponents == 1)
-                format = GL_RED;
-            else if (nrComponents == 3)
-                format = GL_RGB;
-            else if (nrComponents == 4)
-                format = GL_RGBA;
+            unsigned int textureID;
+            glGenTextures(1, &textureID);
 
-            glBindTexture(GL_TEXTURE_2D, textureID);
-            glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-            glGenerateMipmap(GL_TEXTURE_2D);
+            int width, height, nrComponents;
+            unsigned char* data = stbi_load(path, &width, &height, &nrComponents, 0);
+            if (data)
+            {
+                GLenum format;
+                if (nrComponents == 1)
+                    format = GL_RED;
+                else if (nrComponents == 3)
+                    format = GL_RGB;
+                else if (nrComponents == 4)
+                    format = GL_RGBA;
 
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+                glBindTexture(GL_TEXTURE_2D, textureID);
+                glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+                glGenerateMipmap(GL_TEXTURE_2D);
 
-            stbi_image_free(data);
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+                stbi_image_free(data);
+            }
+            else
+            {
+                std::cout << "Texture failed to load at path: " << path << std::endl;
+                stbi_image_free(data);
+            }
+
+            return textureID;
         }
-        else
-        {
-            std::cout << "Texture failed to load at path: " << path << std::endl;
-            stbi_image_free(data);
+        glm::mat4 getScale() { return transform.scale; }
+        glm::mat4 getRoation() { return transform.rotation; }
+        glm::mat4 getTranslation() { return transform.translation; }
+        glm::mat3 getNormalMat() { return transform.normalMat; }
+        glm::mat4 getModel() { return transform.model; }
+        void setScale(glm::vec3 xyz) { transform.scale = glm::scale(xyz); }
+        void setRotation(float degrees, glm::vec3 xyz) { transform.rotation = glm::rotate(glm::radians(degrees), xyz); }
+        void setTranslation(glm::vec3 xyz) { transform.translation = glm::translate(xyz); }
+        /* always call after changing transformation matrices */
+        void updateModelMatrix() {
+            transform.model = transform.translation * transform.rotation * transform.scale;
+            transform.normalMat = glm::mat3(transpose(inverse(transform.model)));   // update normal matrix
         }
 
-        return textureID;
-    }
-    glm::mat4 getScale() { return transform.scale; }
-    glm::mat4 getRoation() { return transform.rotation; }
-    glm::mat4 getTranslation() { return transform.translation; }
-    glm::mat3 getNormalMat() { return transform.normalMat; }
-    glm::mat4 getModel() { return transform.model; }
-    void setScale(glm::vec3 xyz) { transform.scale = glm::scale(xyz); }
-    void setRotation(float degrees, glm::vec3 xyz) { transform.rotation = glm::rotate(glm::radians(degrees), xyz); }
-    void setTranslation(glm::vec3 xyz) { transform.translation = glm::translate(xyz); }
-    /* always call after changing transformation matrices */
-    void updateModelMatrix() { 
-        transform.model = transform.translation * transform.rotation * transform.scale; 
-        transform.normalMat = glm::mat3(transpose(inverse(transform.model)));   // update normal matrix
-    }
+    protected:
+        unsigned int VAO, VBO;
+        std::vector<Texture> textures;
+        bool isInitialized = false;
+        Transformations transform;
 
-protected:
-	unsigned int VAO, VBO;
-    std::vector<Texture> textures;
-	bool isInitialized = false;
-    Transformations transform;
 
-        
-	virtual void initializeMesh() {}; // only for some primitives
-	virtual void initializeData() {};
-};
+        virtual void initializeMesh() {}; // only for some primitives
+        virtual void initializeData() {};
+    };
 
+} // namespace prim3d

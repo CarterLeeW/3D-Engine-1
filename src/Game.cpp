@@ -2,6 +2,7 @@
 #include "scene.h"
 #include <glad/glad.h>
 
+
 Game::Game() {}
 Game::~Game() {}
 

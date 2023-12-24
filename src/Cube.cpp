@@ -1,6 +1,6 @@
 #include "Cube.h"
 
-
+using namespace prim3d;
     
 	Cube::Cube(bool hasSpecular, bool multipleTextures)
 		: Primitive3D()

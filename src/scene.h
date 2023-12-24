@@ -9,11 +9,14 @@
 #include <glm/gtx/transform.hpp>
 #include "Primitive3D.h"
 #include "Cube.h"
+#include "model.h"
+#include "StaticMesh3D.h"
 #define RESOURCES_PATH "C:/Users/carte/source/repos/Engine1/resources/"
 namespace scene {
     Shader* shader = nullptr;
-    Cube* cube1 = nullptr;
-    Cube* cube2 = nullptr;
+    prim3d::Cube* cube1 = nullptr;
+    //Cube* cube2 = nullptr;
+    sm3d::Model* backpack = nullptr;
 
     // function prototypes
     void buildScene();
@@ -39,9 +42,9 @@ namespace scene {
 	{
         
         shader->use();
-
+        stbi_set_flip_vertically_on_load(true);
         // first cube object
-        cube1 = new Cube(true, false);
+        cube1 = new prim3d::Cube(true, false);
         // set initial world space
         cube1->setScale(glm::vec3(2.0f));
         cube1->setRotation(45.0f, glm::vec3(1.0f));
@@ -49,6 +52,13 @@ namespace scene {
         cube1->updateModelMatrix();
         cube1->setTexture("texture_diffuse", RESOURCES_PATH "textures/container2.png");
         cube1->setTexture("texture_specular", RESOURCES_PATH "textures/container2_specular.png");
+
+        // backpack model loading ussing 
+        backpack = new sm3d::Model(RESOURCES_PATH "objects/backpack/backpack.obj");
+        backpack->setScale(glm::vec3(0.5f));
+        backpack->setTranslation(glm::vec3(3.0f, 2.0f, -5.0f));
+        backpack->updateModelMatrix();
+
 	}
 
     void buildLights()
@@ -57,10 +67,10 @@ namespace scene {
         shader->setInt("material.texture_specular", 1);
 
         // directional light
-        shader->setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
-        shader->setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+        shader->setVec3("dirLight.direction", -0.6f, -1.0f, -0.3f);
+        shader->setVec3("dirLight.ambient", 0.03f, 0.03f, 0.03f);
         shader->setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
-        shader->setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+        shader->setVec3("dirLight.specular", 0.6f, 0.6f, 0.6f);
 
         // spotLight
         shader->setVec3("spotLight.position", camera.Position);
@@ -99,8 +109,11 @@ namespace scene {
         shader->setMat4("model", cube1->getModel());
         shader->setFloat("material.shininess", 32.0f);
         cube1->draw(*shader);
-        
-        
+        // backpack
+        shader->setMat3("normalMat", backpack->getNormalMat());
+        shader->setMat4("model", backpack->getModel());
+        shader->setFloat("material.shininess", 64.0f);
+        backpack->Draw(*shader);
 	}
 
 
@@ -108,5 +121,6 @@ namespace scene {
 	{
         delete(shader);
         delete(cube1);
+        delete(backpack);
 	}
 }

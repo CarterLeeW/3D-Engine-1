@@ -2,16 +2,16 @@
 
 #include "Primitive3D.h"
 
+namespace prim3d {
 
+    class Cube : public Primitive3D
+    {
+    public:
+        Cube(bool hasSpecular, bool multipleTextures);
 
-	class Cube : public Primitive3D
-	{
-	public:
-		Cube(bool hasSpecular, bool multipleTextures);
+        void draw(Shader& shader);
 
-		void draw(Shader& shader);
-
-		float vertices[288] = {
+        float vertices[288] = {
             // back face
             // position            // normal            // texture
             -0.5f, -0.5f, -0.5f,   0.0f, 0.0f, -1.0f,   0.0f, 0.0f, // bottom-left
@@ -57,9 +57,11 @@
             -0.5f,  0.5f, -0.5f,   0.0f, 1.0f, 0.0f,    0.0f, 1.0f  // top-left              
         };
 
-	private:
-		bool multipleTextures = false;
-		bool hasSpecular = false;
-		void initializeData();
+    private:
+        bool multipleTextures = false;
+        bool hasSpecular = false;
+        void initializeData();
 
-	};
+    };
+
+} // namespace prim3d

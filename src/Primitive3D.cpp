@@ -1,6 +1,6 @@
 #include "Primitive3D.h"
 
-
+using namespace prim3d;
 	Primitive3D::Primitive3D()
 	{
 		
