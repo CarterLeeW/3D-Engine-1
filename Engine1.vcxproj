@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="src\Cube.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Primitive3D.cpp" />
     <ClCompile Include="thirdparty\glad\src\glad.c" />
@@ -171,6 +172,7 @@
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\Cube.h" />
     <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Level.h" />
     <ClInclude Include="include\model.h" />
     <ClInclude Include="include\Primitive3D.h" />
     <ClInclude Include="include\renderer.h" />
