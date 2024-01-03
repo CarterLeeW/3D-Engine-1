@@ -1,5 +1,5 @@
 #pragma once
-
+#include <stdio.h>
 #include "camera.h"
 #include "renderer.h"
 static Camera camera;
@@ -23,6 +23,8 @@ static void mouse_callback(GLFWwindow* window, GLdouble xposIn, GLdouble yposIn)
     GLfloat yoffset = camera.lastY - ypos;
     camera.lastX = xpos;
     camera.lastY = ypos;
+
+    std::cout << camera.Position.x << std::endl;         // debug camera position not updating
 
     camera.ProcessMouseMovement(xoffset, yoffset);
 }

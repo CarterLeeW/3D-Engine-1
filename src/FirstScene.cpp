@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "FirstScene.h"
 #include "renderer.h"           // FIXME this temporarily solves camera variable issues
 #include "camera.h"
@@ -54,7 +55,7 @@ void FirstScene::buildLights()
     shader->setVec3("dirLight.ambient", 0.03f, 0.03f, 0.03f);
     shader->setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
     shader->setVec3("dirLight.specular", 0.6f, 0.6f, 0.6f);
-
+    
     // spotLight
     shader->setVec3("spotLight.position", camera.Position);
     shader->setVec3("spotLight.direction", camera.Front);
