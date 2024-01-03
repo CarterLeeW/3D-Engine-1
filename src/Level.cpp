@@ -11,7 +11,9 @@ Level::~Level()
 
 void Level::buildScene()
 {
-
+	buildShaders();
+	buildObjects();
+	buildLights();
 }
 
 void Level::buildShaders()
