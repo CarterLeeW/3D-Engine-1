@@ -1,6 +1,7 @@
 #pragma once
 
 #include "renderer.h"
+#include "FirstScene.h"
 
 #include <glm/glm.hpp>
 
@@ -22,5 +23,6 @@ private:
 	int cnt = 0;  
 	int width;
 	int height;
+	FirstScene* firstScene = nullptr;
 	
 };

@@ -7,7 +7,7 @@
 class FirstScene : public Level
 {
 public:
-
+	FirstScene();
 	void renderLevel();
 	void destroyObjects();
 

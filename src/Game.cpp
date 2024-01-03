@@ -14,7 +14,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
     this->height = height;
 
 	/* test stuff */
-	scene::buildScene();
+	firstScene = new FirstScene();  // build scene
     /* test stuff */
 
 	isRunning = true;
@@ -44,12 +44,12 @@ void Game::render()
 	// loop and render meshes
 	//
 	//
-	scene::renderObjects();
+	firstScene->renderLevel();
     
 	glfwSwapBuffers(renderer->window);
 	glfwPollEvents();
 	if (glfwWindowShouldClose(renderer->window)) {
-		scene::destroyObjects();
+		firstScene->destroyObjects();
 		isRunning = false;
 		glfwTerminate();
 	}

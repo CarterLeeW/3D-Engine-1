@@ -1,6 +1,19 @@
 #include "FirstScene.h"
+#include "renderer.h"           // FIXME this temporarily solves camera variable issues
 #include "camera.h"
 #include "callbacks.h"        
+
+FirstScene::FirstScene()
+{
+    buildScene();
+}
+
+void FirstScene::buildScene()
+{
+    buildShaders();
+    buildObjects();
+    buildLights();
+}
 
 /* must be called before buildObjects and buildLights */
 void FirstScene::buildShaders()
