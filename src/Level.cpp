@@ -8,3 +8,23 @@ Level::~Level()
 {
 
 }
+
+void Level::buildScene()
+{
+
+}
+
+void Level::buildShaders()
+{
+
+}
+
+void Level::buildObjects()
+{
+
+}
+
+void Level::buildLights()
+{
+
+}

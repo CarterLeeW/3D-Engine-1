@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Cube.cpp" />
+    <ClCompile Include="src\FirstScene.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="include\callbacks.h" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\Cube.h" />
+    <ClInclude Include="include\FirstScene.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Level.h" />
     <ClInclude Include="include\model.h" />

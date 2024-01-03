@@ -1,4 +1,5 @@
 #pragma once
+#define RESOURCES_PATH "C:/Users/carte/source/repos/Engine1/resources/"
 
 
 class Level

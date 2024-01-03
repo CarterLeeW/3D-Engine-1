@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "scene.h"
 #include <glad/glad.h>
+#include "FirstScene.h"
 
 
 Game::Game() {}
