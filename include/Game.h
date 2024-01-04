@@ -1,10 +1,11 @@
 #pragma once
 
+#include "camera.h"
 #include "renderer.h"
 #include "FirstScene.h"
-
 #include <glm/glm.hpp>
 
+extern Camera camera;
 class Game
 {
 public:

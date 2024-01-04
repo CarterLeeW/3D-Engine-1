@@ -1,13 +1,44 @@
 #pragma once
-
+#include <stdio.h>
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "callbacks.h"
+#include "Game.h"
+//#include "callbacks.h"
+#include "camera.h"
 
 
 
+static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
+static void mouse_callback(GLFWwindow* window, GLdouble xposIn, GLdouble yposIn)
+{
+    GLfloat xpos = static_cast<GLfloat>(xposIn);
+    GLfloat ypos = static_cast<GLfloat>(yposIn);
 
+    if (camera.firstMouse)
+    {
+        camera.lastX = xpos;
+        camera.lastY = ypos;
+        camera.firstMouse = false;
+    }
+
+    GLfloat xoffset = xpos - camera.lastX;
+    GLfloat yoffset = camera.lastY - ypos;
+    camera.lastX = xpos;
+    camera.lastY = ypos;
+
+             // debug camera position not updating
+
+    camera.ProcessMouseMovement(xoffset, yoffset);
+}
+
+static void scroll_callback(GLFWwindow* window, GLdouble xoffset, GLdouble yoffset)
+{
+    camera.ProcessMouseScroll(static_cast<GLfloat>(yoffset));
+}
 
 
 class Renderer
@@ -50,17 +81,17 @@ public:
 
         // process key presses
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            camera.ProcessKeyboard(FORWARD, deltaTime);
+            camera.ProcessKeyboard(Camera_Movement::FORWARD, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            camera.ProcessKeyboard(BACKWARD, deltaTime);
+            camera.ProcessKeyboard(Camera_Movement::BACKWARD, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            camera.ProcessKeyboard(LEFT, deltaTime);
+            camera.ProcessKeyboard(Camera_Movement::LEFT, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            camera.ProcessKeyboard(RIGHT, deltaTime);
+            camera.ProcessKeyboard(Camera_Movement::RIGHT, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-            camera.ProcessKeyboard(UP, deltaTime);
+            camera.ProcessKeyboard(Camera_Movement::UP, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-            camera.ProcessKeyboard(DOWN, deltaTime);
+            camera.ProcessKeyboard(Camera_Movement::DOWN, deltaTime);
     }
 private:
 
@@ -104,3 +135,4 @@ private:
     }
     
 };
+

@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "FirstScene.h"
-#include "renderer.h"           // FIXME this temporarily solves camera variable issues
-#include "camera.h"
-#include "callbacks.h"        
+#include "renderer.h"           // FIXME this temporarily solves camera variable issues but no control of camera
+        
+
 
 FirstScene::FirstScene()
 {
@@ -84,6 +84,8 @@ void FirstScene::renderLevel()
     glm::mat4 view = camera.GetViewMatrix();
     shader->setMat4("projection", projection);
     shader->setMat4("view", view);
+
+    std::cout << camera.Position.x << std::endl;
 
     // world transformation
     // cube1

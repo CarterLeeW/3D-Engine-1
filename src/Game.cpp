@@ -9,6 +9,7 @@ Game::~Game() {}
 
 void Game::init(const char* title, int width, int height, bool fullscreen)
 {
+	camera = Camera();
 	renderer = new Renderer(title, width, height);
     this->width = width;
     this->height = height;
