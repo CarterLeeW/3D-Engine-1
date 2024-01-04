@@ -84,8 +84,6 @@ void FirstScene::renderLevel()
     shader->setMat4("projection", projection);
     shader->setMat4("view", view);
 
-    std::cout << camera.Position.x << std::endl;
-
     // world transformation
     // cube1
     cube1->setRotation((float)glfwGetTime() * 40.0f, glm::vec3(0.0f, 1.0f, 0.0f));

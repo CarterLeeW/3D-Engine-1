@@ -37,11 +37,14 @@ bool Game::getIsRunning() { return isRunning; }
 
 void Game::render()
 {
-	
+	updateFrameTiming();
+	processInput(window);
 
 	// clear the frame and z buffers
 	glClearColor(0.2f, 0.15f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	std::cout << camera.Position.x << std::endl;
 
 	// loop and render meshes
 	//
