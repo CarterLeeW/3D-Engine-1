@@ -6,7 +6,7 @@ int main()
 {
 	std::cout << ("hello from main()") << std::endl;
 	game = new Game();
-	game->init("title", 800, 600, false);
+	game->init();
 
 	while (game->getIsRunning()) {
 		game->render();

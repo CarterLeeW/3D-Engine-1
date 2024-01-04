@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include "FirstScene.h"
-#include "renderer.h"           // FIXME this temporarily solves camera variable issues but no control of camera
-        
+#include "FirstScene.h"        
+#include "Game.h"
 
 
 FirstScene::FirstScene()

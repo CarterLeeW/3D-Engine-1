@@ -3,7 +3,6 @@
 #include "shader.h"
 #include "Cube.h"
 #include "model.h"
-#include "Game.h"
 
 
 class FirstScene : public Level
