@@ -6,6 +6,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, GLdouble xposIn, GLdouble yposIn);
 void scroll_callback(GLFWwindow* window, GLdouble xoffset, GLdouble yoffset);
 
+// define camera
+Camera camera;
+
+
 Game::Game() {}
 Game::~Game() {}
 
@@ -43,8 +47,6 @@ void Game::render()
 	// clear the frame and z buffers
 	glClearColor(0.2f, 0.15f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	std::cout << camera.Position.x << std::endl;
 
 	// loop and render meshes
 	//

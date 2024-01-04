@@ -1,11 +1,11 @@
 #pragma once
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "FirstScene.h"
 #include <glm/glm.hpp>
 #include "camera.h"
+#include "FirstScene.h"
 
-static Camera camera;
+extern Camera camera;    // global variable for use in other files
 class Game
 {
 public:
