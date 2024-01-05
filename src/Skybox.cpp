@@ -24,6 +24,7 @@ void Skybox::initializeData()
 
 void Skybox::draw(Shader& shader)
 {
+	glDepthFunc(GL_LEQUAL);
 	glBindVertexArray(VAO);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
@@ -34,5 +35,5 @@ void Skybox::draw(Shader& shader)
 
 void Skybox::setTextures(std::vector<std::string> faces)
 {
-	loadCubeMap(faces);
+	cubemapTexture = loadCubeMap(faces);
 }

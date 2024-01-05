@@ -18,7 +18,7 @@ void FirstScene::buildScene()
 void FirstScene::buildShaders()
 {
     shader = new Shader(RESOURCES_PATH "shaders/texturedObjWithLight.vs", RESOURCES_PATH "shaders/texturedObjWithLight.fs");
-    
+    skyboxShader = new Shader(RESOURCES_PATH "shaders/skybox.vs", RESOURCES_PATH "shaders/skybox.fs");
 }
 
 void FirstScene::buildObjects()
@@ -36,11 +36,24 @@ void FirstScene::buildObjects()
     cube1->setTexture("texture_diffuse", RESOURCES_PATH "textures/container2.png");
     cube1->setTexture("texture_specular", RESOURCES_PATH "textures/container2_specular.png");
 
-    // backpack model loading ussing 
+    // backpack model loading using assimp
     backpack = new sm3d::Model(RESOURCES_PATH "objects/backpack/backpack.obj");
     backpack->setScale(glm::vec3(0.5f));
     backpack->setTranslation(glm::vec3(3.0f, 2.0f, -5.0f));
     backpack->updateModelMatrix();
+
+    // skybox configuration
+    stbi_set_flip_vertically_on_load(false);
+    skybox = new prim3d::Skybox();
+    std::vector<std::string> skyboxFaces = {
+        RESOURCES_PATH "textures/SB_land/right.png",
+        RESOURCES_PATH "textures/SB_land/left.png",
+        RESOURCES_PATH "textures/SB_land/up.png",
+        RESOURCES_PATH "textures/SB_land/down.png",
+        RESOURCES_PATH "textures/SB_land/front.png",
+        RESOURCES_PATH "textures/SB_land/back.png"
+    };
+    skybox->setTextures(skyboxFaces);
 
 }
 
@@ -70,6 +83,8 @@ void FirstScene::buildLights()
 
 void FirstScene::renderLevel()
 {
+    glEnable(GL_DEPTH_TEST);
+
     shader->use();
     shader->setVec3("viewPos", camera.Position);
 
@@ -97,11 +112,22 @@ void FirstScene::renderLevel()
     shader->setMat4("model", backpack->getModel());
     shader->setFloat("material.shininess", 64.0f);
     backpack->Draw(*shader);
+
+
+    // draw skybox
+    skyboxShader->use();
+    view = glm::mat4(glm::mat3(camera.GetViewMatrix()));
+    skyboxShader->setMat4("view", view);
+    skyboxShader->setMat4("projection", projection);
+    skybox->draw(*skyboxShader);
+
 }
 
 void FirstScene::destroyObjects()
 {
     delete(shader);
+    delete(skyboxShader);
     delete(cube1);
     delete(backpack);
+    delete(skybox);
 }

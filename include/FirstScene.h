@@ -3,6 +3,7 @@
 #include "shader.h"
 #include "Cube.h"
 #include "model.h"
+#include "Skybox.h"
 
 
 class FirstScene : public Level
@@ -15,8 +16,10 @@ public:
 private:
 	// global variables
 	Shader* shader = nullptr;
+	Shader* skyboxShader = nullptr;
 	prim3d::Cube* cube1 = nullptr;
 	sm3d::Model* backpack = nullptr;
+	prim3d::Skybox* skybox = nullptr;
 
 	void buildScene();
 	void buildShaders();
