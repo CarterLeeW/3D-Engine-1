@@ -42,6 +42,14 @@ void FirstScene::buildObjects()
     backpack->setTranslation(glm::vec3(3.0f, 2.0f, -5.0f));
     backpack->updateModelMatrix();
 
+    // floor
+    floor = new prim3d::Plane();
+    floor->setTexture("texture_diffuse", RESOURCES_PATH "textures/floor.jpg");
+    floor->setTexture("texture_specular", RESOURCES_PATH "textures/floor.jpg");   // need to reset texture samplers in shader
+    floor->setScale(glm::vec3(100.0f));                                           // or use new shader
+    floor->setTranslation(glm::vec3(3.0f, -2.0f, -5.0f));
+    floor->updateModelMatrix();
+
     // skybox configuration
     stbi_set_flip_vertically_on_load(false);
     skybox = new prim3d::Skybox();
@@ -112,7 +120,11 @@ void FirstScene::renderLevel()
     shader->setMat4("model", backpack->getModel());
     shader->setFloat("material.shininess", 64.0f);
     backpack->Draw(*shader);
-
+    // floor
+    shader->setMat3("normalMat", floor->getNormalMat());
+    shader->setMat4("model", floor->getModel());
+    shader->setFloat("material.shininess", 16.0f);
+    floor->draw(*shader);
 
     // draw skybox
     skyboxShader->use();
@@ -130,4 +142,5 @@ void FirstScene::destroyObjects()
     delete(cube1);
     delete(backpack);
     delete(skybox);
+    delete(floor);
 }

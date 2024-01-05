@@ -12,7 +12,7 @@ namespace prim3d {
 		void draw(Shader& shader);
         void setTextures(std::vector<std::string> faces);
 
-        float vertices[108] = {
+        static constexpr float vertices[] = {
             // positions          
             -1.0f,  1.0f, -1.0f,
             -1.0f, -1.0f, -1.0f,

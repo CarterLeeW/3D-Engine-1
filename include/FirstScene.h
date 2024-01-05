@@ -4,7 +4,7 @@
 #include "Cube.h"
 #include "model.h"
 #include "Skybox.h"
-
+#include "Plane.h"
 
 class FirstScene : public Level
 {
@@ -20,6 +20,7 @@ private:
 	prim3d::Cube* cube1 = nullptr;
 	sm3d::Model* backpack = nullptr;
 	prim3d::Skybox* skybox = nullptr;
+	prim3d::Plane* floor = nullptr;
 
 	void buildScene();
 	void buildShaders();

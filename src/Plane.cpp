@@ -1,18 +1,18 @@
-#include "Cube.h"
+#include "Plane.h"
 
 using namespace prim3d;
-    
-Cube::Cube()
+
+Plane::Plane()
 	: Primitive3D()
 {
 	initializeData();
 }
 
-void Cube::initializeData()
+void Plane::initializeData()
 {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
-        
+
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), &vertices, GL_STATIC_DRAW);
 
@@ -26,7 +26,7 @@ void Cube::initializeData()
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 }
 
-void Cube::draw(Shader& shader)
+void Plane::draw(Shader& shader)
 {
     // bind appropriate textures
     unsigned int diffuseNr = 1;
@@ -55,7 +55,7 @@ void Cube::draw(Shader& shader)
     glActiveTexture(GL_TEXTURE0);
 }
 
-void Cube::setTexture(std::string type, const char* path)
+void Plane::setTexture(std::string type, const char* path)
 {
     Texture newTexture;
     unsigned int textureID = loadTexture(path);

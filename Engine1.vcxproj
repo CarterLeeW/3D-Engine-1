@@ -156,6 +156,7 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Plane.cpp" />
     <ClCompile Include="src\Primitive3D.cpp" />
     <ClCompile Include="src\Skybox.cpp" />
     <ClCompile Include="thirdparty\glad\src\glad.c" />
@@ -179,6 +180,7 @@
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Level.h" />
     <ClInclude Include="include\model.h" />
+    <ClInclude Include="include\Plane.h" />
     <ClInclude Include="include\Primitive3D.h" />
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\scene.h" />

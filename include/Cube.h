@@ -13,7 +13,7 @@ namespace prim3d {
         void draw(Shader& shader);
         void setTexture(std::string type, const char* path);
 
-        float vertices[288] = {
+        static constexpr float vertices[] = {
             // back face
             // position            // normal            // texture
             -0.5f, -0.5f, -0.5f,   0.0f, 0.0f, -1.0f,   0.0f, 0.0f, // bottom-left
