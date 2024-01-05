@@ -2,11 +2,9 @@
 
 using namespace prim3d;
     
-	Cube::Cube(bool hasSpecular, bool multipleTextures)
+	Cube::Cube()
 		: Primitive3D()
 	{
-		this->multipleTextures = multipleTextures;
-        this->hasSpecular = hasSpecular;
 		initializeData();
 	}
 
@@ -55,4 +53,13 @@ using namespace prim3d;
         glBindVertexArray(0);
 
         glActiveTexture(GL_TEXTURE0);
+    }
+
+    void Cube::setTexture(std::string type, const char* path)
+    {
+        Texture newTexture;
+        unsigned int textureID = loadTexture(path);
+        newTexture.id = textureID;
+        newTexture.type = type;
+        textures.push_back(newTexture);
     }

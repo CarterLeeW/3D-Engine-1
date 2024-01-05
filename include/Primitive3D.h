@@ -37,45 +37,8 @@ namespace prim3d {
         Primitive3D();
         virtual ~Primitive3D();
         virtual void draw(Shader& shader) = 0;
-        void setTexture(std::string type, const char* path);
         virtual void deleteMesh();
 
-        unsigned int loadTexture(char const* path)
-        {
-            unsigned int textureID;
-            glGenTextures(1, &textureID);
-
-            int width, height, nrComponents;
-            unsigned char* data = stbi_load(path, &width, &height, &nrComponents, 0);
-            if (data)
-            {
-                GLenum format;
-                if (nrComponents == 1)
-                    format = GL_RED;
-                else if (nrComponents == 3)
-                    format = GL_RGB;
-                else if (nrComponents == 4)
-                    format = GL_RGBA;
-
-                glBindTexture(GL_TEXTURE_2D, textureID);
-                glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-                glGenerateMipmap(GL_TEXTURE_2D);
-
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-                stbi_image_free(data);
-            }
-            else
-            {
-                std::cout << "Texture failed to load at path: " << path << std::endl;
-                stbi_image_free(data);
-            }
-
-            return textureID;
-        }
         glm::mat4 getScale() { return transform.scale; }
         glm::mat4 getRoation() { return transform.rotation; }
         glm::mat4 getTranslation() { return transform.translation; }
@@ -96,7 +59,8 @@ namespace prim3d {
         bool isInitialized = false;
         Transformations transform;
 
-
+        unsigned int loadTexture(char const* path);
+        unsigned int loadCubeMap(std::vector<std::string> faces);
         virtual void initializeMesh() {}; // only for some primitives
         virtual void initializeData() {};
     };

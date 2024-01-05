@@ -2,14 +2,16 @@
 
 #include "Primitive3D.h"
 
+
 namespace prim3d {
 
     class Cube : public Primitive3D
     {
     public:
-        Cube(bool hasSpecular, bool multipleTextures);
+        Cube();
 
         void draw(Shader& shader);
+        void setTexture(std::string type, const char* path);
 
         float vertices[288] = {
             // back face
@@ -58,8 +60,6 @@ namespace prim3d {
         };
 
     private:
-        bool multipleTextures = false;
-        bool hasSpecular = false;
         void initializeData();
 
     };

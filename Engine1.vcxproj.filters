@@ -45,6 +45,9 @@
     <ClCompile Include="src\FirstScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\shader.fs">
@@ -63,6 +66,12 @@
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="resources\shaders\texturedObjWithLight.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\skybox.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\skybox.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
@@ -101,6 +110,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\FirstScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

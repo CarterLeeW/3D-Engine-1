@@ -18,6 +18,7 @@ void FirstScene::buildScene()
 void FirstScene::buildShaders()
 {
     shader = new Shader(RESOURCES_PATH "shaders/texturedObjWithLight.vs", RESOURCES_PATH "shaders/texturedObjWithLight.fs");
+    
 }
 
 void FirstScene::buildObjects()
@@ -26,7 +27,7 @@ void FirstScene::buildObjects()
     shader->use();
     stbi_set_flip_vertically_on_load(true);
     // first cube object
-    cube1 = new prim3d::Cube(true, false);
+    cube1 = new prim3d::Cube();
     // set initial world space
     cube1->setScale(glm::vec3(2.0f));
     cube1->setRotation(45.0f, glm::vec3(1.0f));
